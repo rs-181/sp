@@ -1100,12 +1100,7 @@ window.openLightbox = (src) => {
   lightbox.classList.add('open');
 };
 
-window.toggleLike = async (postId) => {
-  const staticPost = STATIC_POSTS.find(p => p.id === postId);
-  if (staticPost) {
-    showToast('❤️ આ પોસ્ટ સ્ટેટિક છે!');
-    return;
-  }
+window.toggleLike = async (postId) =>
   
   const postRef = ref(db, `posts/${postId}/likes/${STATE.myUid}`);
   const snap = await get(postRef);
@@ -1239,11 +1234,11 @@ function loadProfiles() {
 // PAGE 5: TUTORIALS
 // ============================================================
 const TUTORIALS = [
-  { id: 't1', label: 'સ્વાગત ટ્યુટોરિયલ', file: 't1.jpg' },
-  { id: 't2', label: 'પોસ્ટ કેવી રીતે કરવી', file: 't2.jpg' },
-  { id: 't3', label: 'ચેટ કેવી રીતે કરવી', file: 't3.jpg' },
-  { id: 't4', label: 'પ્રોફાઇલ કેવી રીતે શોધવી', file: 't4.jpg' },
-  { id: 't5', label: 'એપ કેવી રીતે ઇન્સ્ટોલ કરવી', file: 't5.jpg' },
+  { id: 't1', label: 'Homr', file: 't1.jpg' },
+  { id: 't2', label: 'Profile', file: 't2.jpg' },
+  { id: 't3', label: 'Chat 181', file: 't3.jpg' },
+  { id: 't4', label: 'Store', file: 't4.jpg' },
+  { id: 't5', label: 'TUTORIALS', file: 't5.jpg' },
 ];
 
 function loadTutorials() {
