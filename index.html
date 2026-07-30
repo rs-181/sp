@@ -7,7 +7,7 @@
 
 <!-- PWA META TAGS -->
 <meta name="description" content="સમેજા પરિવાર - ગુજરાતી સોશિયલ નેટવર્ક">
-<meta name="theme-color" content="#050a05">
+<meta name="theme-color" content="#405DE6">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -59,7 +59,7 @@ html, body {
 }
 
 /* ================================================================
-   INSTALL OVERLAY - Shows when app is NOT installed
+   INSTALL OVERLAY
    ================================================================ */
 #install-overlay {
   position: fixed;
@@ -179,7 +179,7 @@ html, body {
 }
 
 /* ================================================================
-   SPLASH SCREEN (shown briefly during load)
+   SPLASH SCREEN
    ================================================================ */
 #splash {
   position: fixed;
@@ -229,7 +229,7 @@ html, body {
 }
 
 /* ================================================================
-   MAIN APP (hidden until installed)
+   MAIN APP
    ================================================================ */
 #app {
   width: 100%;
@@ -357,7 +357,7 @@ html, body {
   letter-spacing: 0.5px;
 }
 
-/* ========== PAGE 1: HOME (Posts) ========== */
+/* ========== PAGE 1: HOME ========== */
 #page-home .post {
   background: var(--surface);
   margin-bottom: 8px;
@@ -538,7 +538,7 @@ html, body {
   text-align: center;
 }
 
-/* ========== PAGE 3: CHAT (iframe) ========== */
+/* ========== PAGE 3: CHAT ========== */
 #page-chat iframe {
   width: 100%;
   height: 100%;
@@ -715,7 +715,7 @@ html, body {
 <body>
 
 <!-- ============================================================
-     INSTALL OVERLAY - Forces user to install before using
+     INSTALL OVERLAY
      ============================================================ -->
 <div id="install-overlay">
   <div class="install-icon"><i class="fas fa-mobile-alt"></i></div>
@@ -745,7 +745,7 @@ html, body {
     <i class="fas fa-download"></i> એપ ઇન્સ્ટોલ કરો
   </button>
   
-  <div class="install-note">⚠️કૃપા કરીને એપ ઇન્સ્ટોલ કરો.</div>
+  <div class="install-note">⚠️ કૃપા કરીને એપ ઇન્સ્ટોલ કરો.</div>
 </div>
 
 <!-- ============================================================
@@ -970,14 +970,14 @@ setTimeout(() => {
 }, 1500);
 
 // ============================================================
-// STATIC POSTS
+// STATIC POSTS with JPG Images
 // ============================================================
 const STATIC_POSTS = [
   {
     id: 'post_1',
     nick: 'સમેજા પરિવાર',
     avatar: '💻',
-    image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhwwehDreajqQ7m77_xo7AYTNQl21EDceYEKeg2MUPutOveCkPDAWQULXDIwLYPuvsar4b-llauFNfuBAIyI12fcnz7rCHzK9vUNi1b1BAn34JBPfD8ohpmJyx35EwLfN6Sjo_E-o8mvTcjC9a6STS_DwW5NnTNS8M288aXPAHpN7Pjg5Z9DIXxjAkU2fi3/s320/200098.png',
+    image: 'p1.jpg',
     caption: `🌟 આ એપ સમેજા પરિવાર માટે બનાવવામાં આવી છે!
 
 🔐 આમાં સમેજા પરિવાર માટે ખાસ ચેટ રૂમ છે.
@@ -993,7 +993,7 @@ const STATIC_POSTS = [
     id: 'post_2',
     nick: 'સમેજા પરિવાર',
     avatar: '🤝',
-    image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgNqj1-xYIoO6_J7SPT3s1OPWakfaN3bzeXeuMKfl7FAINXrgOiIdpWxmZZbjGXWui5lTEk9kHoHYwkIwCMq6b38LSAkLrxTZEqAKe1XMDBwtOZ2DZXRBh5YqLWhai1oATrhG5Q63XPa6ZNOn3aYN2Kd78mmfKUG5AoKQc3oQcIopkE0TYfTYfFzRFdoV5L/s512-rw/17930.jpg',
+    image: 'p2.jpg',
     caption: `🙏 આ એપના સ્પોન્સર્સ:
 
 1. 🌊 અમૃતમ વોટર (રજાક ભાઈ)
@@ -1011,7 +1011,6 @@ const STATIC_POSTS = [
 4. 🔧 સમય ફેબ્રિકેશન (અહેમદ સમા)
    🌐 samay-fabrication.netlify.app
    📞 +91 97259 36153`,
-   
     createdAt: Date.now() - 7200000,
     likes: { 'dummy2': true },
     isStatic: true
@@ -1020,9 +1019,8 @@ const STATIC_POSTS = [
     id: 'post_3',
     nick: 'સમેજા પરિવાર',
     avatar: '🎮',
-    image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipuGk2P7h2ATbrXUlPl-Qc5B2Mjii1jdfhjguRjBkT0MMvgNfgZOteUYiCb2Tx8wK_snAufBh_12jqd4xvtXcJnnbdl3wrHcvX3qsf_B9uvU3OfXrbZHN_Q9jvNUJSLSH6liCkHxpx6pR865Oed3F533mrlZwEN4ewxSTq2Z6L6srbcWvvxhcUzu5OXqx3/s512-c/180230.jpg',
+    image: 'p3.jpg',
     caption: `🎯 2048 ગેમ રમો અને મજા કરો!
-
 
 👇 ગેમ રમવા માટે નીચે બટન દબાવો
 ગેમ રમો અને ફન કરો! 🎉`,
@@ -1100,8 +1098,7 @@ window.openLightbox = (src) => {
   lightbox.classList.add('open');
 };
 
-window.toggleLike = async (postId) =>
-  
+window.toggleLike = async (postId) => {
   const postRef = ref(db, `posts/${postId}/likes/${STATE.myUid}`);
   const snap = await get(postRef);
   if (snap.exists()) {
@@ -1210,7 +1207,7 @@ function loadPosts() {
 }
 
 // ============================================================
-// PAGE 2: PROFILES
+// PAGE 2: PROFILES (JPG Images)
 // ============================================================
 const PROFILES = [
   { id: 'rehan_sandhi_181', name: 'rehan_sandhi_181', file: 'insta1.jpg' },
@@ -1231,14 +1228,14 @@ function loadProfiles() {
 }
 
 // ============================================================
-// PAGE 5: TUTORIALS
+// PAGE 5: TUTORIALS (JPG Images)
 // ============================================================
 const TUTORIALS = [
-  { id: 't1', label: 'Homr', file: 't1.jpg' },
+  { id: 't1', label: 'Home', file: 't1.jpg' },
   { id: 't2', label: 'Profile', file: 't2.jpg' },
   { id: 't3', label: 'Chat 181', file: 't3.jpg' },
   { id: 't4', label: 'Store', file: 't4.jpg' },
-  { id: 't5', label: 'TUTORIALS', file: 't5.jpg' },
+  { id: 't5', label: 'Tutorials', file: 't5.jpg' },
 ];
 
 function loadTutorials() {
@@ -1265,14 +1262,12 @@ let deferredPrompt = null;
 
 // Check if already installed
 if (checkIfInstalled()) {
-  // App is installed - hide overlay and show app
   installOverlay.classList.add('hide');
   appEl.classList.add('show');
   loadPosts();
   loadProfiles();
   loadTutorials();
 } else {
-  // Not installed - show overlay
   installOverlay.classList.remove('hide');
   appEl.classList.remove('show');
 }
@@ -1311,17 +1306,14 @@ installMainBtn.addEventListener('click', async () => {
       showToast('❌ ઇન્સ્ટોલ કરવામાં ભૂલ થઈ');
     }
   } else {
-    // Fallback: Show install instructions
-    showToast('📱 કૃપા કરીને ... મેનુમાં "એપ ઇન્સ્ટોલ કરો" દબાવો');
-    
-    // For iOS
+    showToast('📱 ... મેનુમાં "એપ ઇન્સ્ટોલ કરો" દબાવો');
     if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-      showToast('📱 Safari માં "Share" → "Add to Home Screen" દબાવો');
+      showToast('📱 Safari "Share" → "Add to Home Screen"');
     }
   }
 });
 
-// Also check on visibility change (user might install via browser menu)
+// Check on visibility change
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) {
     if (checkIfInstalled() && !STATE.isInstalled) {

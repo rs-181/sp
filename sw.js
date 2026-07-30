@@ -3,6 +3,7 @@ const ASSETS = [
   '.',
   'index.html',
   'manifest.json',
+  'icon-512.png',
   'insta1.jpg',
   'insta2.jpg',
   'insta3.jpg',
@@ -43,10 +44,12 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
+  // Skip external URLs
   if (url.hostname.includes('googleapis.com') || 
       url.hostname.includes('firebase') ||
       url.hostname.includes('gstatic.com') ||
-      url.hostname.includes('netlify.app')) {
+      url.hostname.includes('netlify.app') ||
+      url.hostname.includes('blogger.com')) {
     return;
   }
 
