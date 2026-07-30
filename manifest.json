@@ -1,0 +1,20 @@
+{
+  "name": "સમેજા પરિવાર",
+  "short_name": "સમેજા",
+  "description": "સમેજા પરિવાર",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#405DE6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhwwehDreajqQ7m77_xo7AYTNQl21EDceYEKeg2MUPutOveCkPDAWQULXDIwLYPuvsar4b-llauFNfuBAIyI12fcnz7rCHzK9vUNi1b1BAn34JBPfD8ohpmJyx35EwLfN6Sjo_E-o8mvTcjC9a6STS_DwW5NnTNS8M288aXPAHpN7Pjg5Z9DIXxjAkU2fi3/s320/200098.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["social", "communication"],
+  "lang": "gu"
+}
