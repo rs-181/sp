@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>સમજા પરિવાર</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg: #f0f2f5;
+      --s: #ffffff;
+      --s2: #f8f9fa;
+      --bd: #e9edef;
+      --g: #00a884;
+      --gd: #008069;
+      --gf: #d9fdd3;
+      --gp: #ffffff;
+      --td: #54656f;
+      --tf: #8696a0;
+      --red: #ea0038;
+      --mono: 'Inter', -apple-system, system-ui, sans-serif;
+      --radius: 18px;
+      --radius-sm: 12px;
+    }
+
+    body {
+      font-family: var(--mono);
+      background: var(--bg);
+      color: #111b21;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      inset: 0;
+    }
+
+    /* Smooth corners - no clipping */
+    .box, .btn, .inp, .mb, .ab, .sb, .modal, .url-box, .code-display, .warn-box, 
+    .group-item, .home-header, .hdr, .ia, .voice-bar, .ann-bubble, .fpi, .tag, 
+    .tog-btn, .bbtn, .mbtn, .ditem, .voice-join-btn, .mic-btn, .end-call-btn {
+      clip-path: none !important;
+      border-radius: var(--radius) !important;
+    }
+
+    .btn, .sb, .ab, .bbtn, .tog-btn, .voice-join-btn, .mic-btn, .end-call-btn, 
+    .group-item, .ditem, .inp, .mi2 {
+      border-radius: var(--radius-sm) !important;
+    }
+
+    .mr.own .mb {
+      background: var(--gf) !important;
+      color: #111b21 !important;
+      border: none !important;
+      box-shadow: 0 1px 0.5px rgba(0,0,0,0.08);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 var(--radius-sm) !important;
+    }
+
+    .mr.other .mb {
+      background: var(--gp) !important;
+      color: #111b21 !important;
+      border: none !important;
+      box-shadow: 0 1px 0.5px rgba(0,0,0,0.08);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) var(--radius-sm) !important;
+    }
+
+    .mr.own .mm { justify-content: flex-end; }
+    .mr.other .mm { justify-content: flex-start; }
+
+    /* Remove auto-delete indicators */
+    .cb, .me { display: none !important; }
+
+    .scr {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      background: var(--bg);
+      padding: 16px;
+    }
+    .scr.off { display: none !important; }
+
+    .box {
+      width: min(440px, 100%);
+      background: var(--s);
+      padding: 28px 24px;
+      border: 1px solid rgba(0,0,0,0.04);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-size: clamp(22px, 6vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-align: center;
+      color: #111b21;
+    }
+    .logo span { color: var(--g); }
+
+    .sub {
+      font-size: 10px;
+      color: var(--td);
+      text-align: center;
+      letter-spacing: 0.3px;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+
+    .lbl {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: var(--td);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .inp {
+      width: 100%;
+      background: var(--bg);
+      border: 1.5px solid transparent;
+      color: #111b21;
+      font-family: var(--mono);
+      font-size: 15px;
+      padding: 14px 16px;
+      outline: none;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .inp:focus {
+      border-color: var(--g);
+      background: white;
+    }
+    .inp::placeholder { color: var(--tf); font-weight: 400; }
+
+    .btn {
+      width: 100%;
+      background: var(--g);
+      border: none;
+      color: white;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .btn:hover { background: var(--gd); transform: scale(0.98); }
+    .btn:active { transform: scale(0.96); }
+
+    .btn-sec {
+      background: transparent;
+      color: var(--g);
+      border: 1.5px solid var(--g);
+    }
+    .btn-sec:hover { background: var(--gf); color: var(--gd); }
+
+    .btn-red {
+      background: var(--red);
+      color: white;
+      border: none;
+    }
+    .btn-red:hover { background: #c62828; }
+
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .gap { height: 16px; }
+    .gap-sm { height: 10px; }
+
+    .hint {
+      font-size: 10px;
+      color: var(--tf);
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .bst {
+      font-size: 10px;
+      color: var(--tf);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-weight: 500;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--g);
+      animation: blink 1.2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+    /* HOME */
+    .home-header {
+      width: min(440px, 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: transparent;
+      padding: 8px 4px 14px 4px;
+    }
+    .home-nick {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--td);
+    }
+    .home-nick span { color: var(--g); }
+
+    .groups-list {
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      scrollbar-width: thin;
+    }
+    .groups-list::-webkit-scrollbar { width: 4px; }
+    .groups-list::-webkit-scrollbar-thumb { background: var(--gd); border-radius: 8px; }
+
+    .group-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--s);
+      border: 1px solid var(--bd);
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .group-item:hover { border-color: var(--g); background: var(--s2); }
+    .gi-name { font-weight: 600; font-size: 14px; color: #111b21; }
+    .gi-meta { font-size: 10px; color: var(--tf); display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+    .tag {
+      font-size: 9px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      border: none;
+    }
+    .tag-pub { background: #e8f5e9; color: #2e7d32; }
+    .tag-prv { background: #fce4ec; color: #c62828; }
+    .no-groups { text-align: center; color: var(--tf); font-size: 12px; padding: 30px 0; }
+
+    /* CHAT */
+    #cs {
+      flex-direction: column;
+      background: var(--bg);
+      align-items: stretch;
+      justify-content: flex-start;
+      padding: 0;
+    }
+
+    .hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      background: var(--s);
+      border-bottom: 1px solid var(--bd);
+      flex-shrink: 0;
+      min-height: 56px;
+      gap: 8px;
+    }
+    .htitle {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hsubt {
+      font-size: 10px;
+      color: var(--td);
+      font-weight: 500;
+    }
+    .ob {
+      font-size: 10px;
+      color: var(--td);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .bbtn {
+      background: transparent;
+      border: none;
+      color: var(--g);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 6px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .bbtn:hover { background: var(--gf); }
+
+    .voice-join-btn {
+      background: var(--gf);
+      border: none;
+      color: var(--td);
+      font-weight: 600;
+      font-size: 10px;
+      padding: 6px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .voice-join-btn.in-call { background: var(--g); color: white; }
+
+    .mbtn {
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .mbtn span {
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--td);
+    }
+
+    .mwrap { position: relative; }
+    .dd {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background: var(--s);
+      border: 1px solid var(--bd);
+      min-width: 200px;
+      z-index: 200;
+      display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .dd.open { display: block; }
+    .ditem {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--td);
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      border-bottom: 1px solid var(--bd);
+    }
+    .ditem:last-child { border-bottom: none; }
+    .ditem:hover { background: var(--gf); color: var(--g); }
+    .ditem.red { color: var(--red); }
+    .ditem.red:hover { background: #ffebee; color: var(--red); }
+    .ditem svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* MESSAGES */
+    .ma {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+    }
+    .ma::-webkit-scrollbar { width: 4px; }
+    .ma::-webkit-scrollbar-thumb { background: var(--gd); border-radius: 8px; }
+
+    .es {
+      text-align: center;
+      color: var(--tf);
+      font-size: 12px;
+      padding: 40px 20px;
+      opacity: 0.7;
+      font-weight: 500;
+    }
+
+    .mr {
+      display: flex;
+      flex-direction: column;
+      max-width: min(78%, 460px);
+      margin-bottom: 4px;
+      animation: fadeUp 0.2s ease;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .mr.own { align-self: flex-end; }
+    .mr.other { align-self: flex-start; }
+
+    .mm {
+      font-size: 10px;
+      color: var(--tf);
+      font-weight: 500;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mnick { font-weight: 600; color: #111b21; }
+
+    .mb {
+      padding: 10px 14px;
+      font-size: 14px;
+      line-height: 1.5;
+      word-break: break-word;
+      font-weight: 500;
+    }
+
+    .mimg {
+      max-width: 180px;
+      max-height: 150px;
+      display: block;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .sys-msg {
+      text-align: center;
+      font-size: 10px;
+      color: var(--tf);
+      padding: 6px 0;
+      opacity: 0.6;
+    }
+
+    .ann-msg {
+      width: 100%;
+      margin: 8px 0;
+      max-width: 100% !important;
+      align-self: stretch !important;
+    }
+    .ann-bubble {
+      background: #1a2a1a;
+      border: 1px solid var(--g);
+      border-radius: var(--radius-sm) !important;
+      overflow: hidden;
+    }
+    .ann-header {
+      background: var(--g);
+      color: white;
+      font-weight: 700;
+      font-size: 10px;
+      padding: 6px 14px;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+    .ann-body {
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #e0f2e0;
+    }
+    .ann-footer {
+      padding: 4px 14px 8px;
+      font-size: 9px;
+      color: var(--tf);
+      text-align: right;
+    }
+
+    .ti {
+      padding: 4px 14px;
+      font-size: 10px;
+      color: var(--tf);
+      font-weight: 500;
+      min-height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* INPUT */
+    .ia {
+      background: var(--s);
+      border-top: 1px solid var(--bd);
+      padding: 10px 12px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .fp {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+      max-height: 70px;
+      overflow-y: auto;
+    }
+    .fpi {
+      background: var(--bg);
+      border: 1px solid var(--bd);
+      padding: 4px 10px;
+      border-radius: 20px !important;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .fpi img { width: 24px; height: 24px; border-radius: 6px; object-fit: cover; }
+    .rf {
+      background: none;
+      border: none;
+      color: var(--red);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .ir {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .ab {
+      background: var(--bg);
+      border: none;
+      color: var(--td);
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: 0.15s;
+    }
+    .ab:hover { background: var(--gf); color: var(--g); }
+    .ab svg { width: 22px; height: 22px; }
+
+    #fi { display: none; }
+
+    .mi2 {
+      flex: 1;
+      background: var(--bg);
+      border: 1.5px solid transparent;
+      color: #111b21;
+      font-family: var(--mono);
+      font-size: 15px;
+      padding: 12px 16px;
+      outline: none;
+      resize: none;
+      min-height: 44px;
+      max-height: 110px;
+      line-height: 1.4;
+      transition: 0.2s;
+      font-weight: 500;
+    }
+    .mi2:focus { border-color: var(--g); background: white; }
+    .mi2::placeholder { color: var(--tf); font-weight: 400; }
+
+    .sb {
+      background: var(--g);
+      border: none;
+      color: white;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: 0.15s;
+    }
+    .sb:hover { background: var(--gd); }
+    .sb:active { transform: scale(0.92); }
+    .sb svg { width: 22px; height: 22px; }
+
+    .upload-bar, .upload-status { display: none; }
+
+    /* VOICE BAR */
+    .voice-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      background: #0f1a0f;
+      border-bottom: 1px solid var(--gd);
+      flex-shrink: 0;
+      gap: 10px;
+    }
+    .voice-bar.active { display: flex; }
+    .voice-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+    .voice-status { font-size: 11px; color: #b0bec5; font-weight: 600; }
+    .voice-peers { display: flex; gap: 6px; flex-wrap: nowrap; overflow-x: auto; }
+    .voice-peer {
+      font-size: 10px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--gd);
+      color: #cfd8dc;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .voice-peer.speaking { border-color: var(--g); color: var(--g); }
+    .mic-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--gd);
+      color: white;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: 0.15s;
+    }
+    .mic-btn.muted { border-color: var(--red); background: rgba(234,0,56,0.15); }
+    .mic-btn svg { width: 18px; height: 18px; }
+    .end-call-btn {
+      background: rgba(234,0,56,0.15);
+      border: 1px solid var(--red);
+      color: var(--red);
+      cursor: pointer;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--mono);
+      transition: 0.15s;
+      border-radius: var(--radius-sm) !important;
+    }
+    .end-call-btn:hover { background: var(--red); color: white; }
+
+    .call-wave {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .call-wave span {
+      display: block;
+      width: 3px;
+      background: var(--g);
+      border-radius: 4px;
+      animation: wave 1s infinite ease-in-out;
+    }
+    .call-wave span:nth-child(1) { height: 6px; animation-delay: 0s; }
+    .call-wave span:nth-child(2) { height: 12px; animation-delay: 0.15s; }
+    .call-wave span:nth-child(3) { height: 8px; animation-delay: 0.3s; }
+    .call-wave span:nth-child(4) { height: 14px; animation-delay: 0.45s; }
+    .call-wave span:nth-child(5) { height: 6px; animation-delay: 0.6s; }
+    @keyframes wave { 0%,100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
+
+    /* MODALS */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-bg.open { display: flex; }
+    .modal {
+      width: min(400px, 100%);
+      background: var(--s);
+      padding: 28px 24px;
+      border: none;
+      position: relative;
+    }
+    .modal-title {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: #111b21;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--td);
+    }
+    .url-box {
+      background: var(--bg);
+      padding: 12px 16px;
+      font-size: 13px;
+      word-break: break-all;
+      margin-bottom: 12px;
+      border: 1px solid var(--bd);
+    }
+    .code-display {
+      background: var(--bg);
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 2px;
+      border: 1px solid var(--g);
+      color: var(--g);
+    }
+    .warn-box {
+      background: #ffebee;
+      border: 1px solid var(--red);
+      padding: 14px;
+      font-size: 12px;
+      color: #b71c1c;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #323232;
+      color: white;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      z-index: 9990;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      border-radius: var(--radius-sm) !important;
+      max-width: 90vw;
+      text-align: center;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    #lb {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 9998;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    #lb.open { display: flex; }
+    #lb img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 12px; }
+
+    .cbar { display: none; }
+
+    .tog-btn {
+      flex: 1;
+      padding: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1.5px solid var(--bd);
+      background: transparent;
+      color: var(--tf);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .tog-btn.active {
+      border-color: var(--g);
+      color: var(--g);
+      background: var(--gf);
+    }
+    .toggle-row { display: flex; gap: 8px; margin-bottom: 4px; }
+
+    @media (max-width: 480px) {
+      .box { padding: 20px 16px; }
+      .home-header { padding: 4px 0 10px 0; }
+      .hdr { padding: 6px 10px; min-height: 48px; }
+      .ma { padding: 8px 10px; }
+      .ia { padding: 6px 8px; }
+      .mr { max-width: 88%; }
+      .mb { font-size: 13px; padding: 8px 12px; }
+      .mi2 { font-size: 14px; padding: 10px 12px; min-height: 38px; }
+      .btn { padding: 12px; font-size: 13px; }
+      .inp { padding: 12px 14px; font-size: 14px; }
+      .modal { padding: 20px 16px; }
+      .voice-peer { font-size: 9px; padding: 2px 8px; }
+    }
+
+    @media (max-width: 380px) {
+      .box { padding: 16px 12px; }
+      .row2 { grid-template-columns: 1fr; }
+      .home-header { flex-wrap: wrap; gap: 8px; }
+    }
+
+    .ma { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+  <canvas id="mx" style="display:none;"></canvas>
+
+  <!-- NICKNAME (First time mandatory) -->
+  <div class="scr" id="ns">
+    <div class="box">
+      <div class="logo">સમજા <span>પરિવાર</span></div>
+      <div class="sub">અજ્ઞાત · કાયમી · સુરક્ષિત</div>
+      <div class="lbl">// તમારું ઉપનામ દાખલ કરો (કાયમી)</div>
+      <input class="inp" id="ni" type="text" placeholder="ઉપનામ લખો..." maxlength="20" autocomplete="off" spellcheck="false">
+      <div class="hint">> આ એકવાર સેટ થશે અને બદલી શકાશે નહીં</div>
+      <div class="gap"></div>
+      <button class="btn" id="ni-btn"><span>ચાલુ રાખો</span></button>
+      <div class="bst"><span class="dot"></span><span id="bst-txt">શરૂ થઈ રહ્યું છે...</span></div>
+    </div>
+  </div>
+
+  <!-- HOME (only shows the fixed room) -->
+  <div class="scr off" id="hs">
+    <div class="home-header">
+      <div class="home-nick">> <span id="hn-display"></span></div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <div class="ob"><span class="dot"></span><span id="total-online">0 ઓનલાઈન</span></div>
+        <div class="mwrap">
+          <button class="mbtn" id="home-mbtn"><span></span><span></span><span></span></button>
+          <div class="dd" id="home-dd">
+            <a class="ditem" href="#" target="_blank">લાયસન્સ</a>
+            <a class="ditem" href="#" target="_blank">પ્રોફાઇલ</a>
+            <a class="ditem" href="#" target="_blank">ઇન્સ્ટાગ્રામ</a>
+            <a class="ditem" href="#" target="_blank">પોર્ટફોલિયો</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="lbl">// સક્રિય રૂમ</div>
+      <div class="groups-list" id="groups-list">
+        <div class="no-groups">લોડ થઈ રહ્યું છે...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT (direct) -->
+  <div class="scr off" id="cs">
+    <div class="hdr">
+      <div class="hl">
+        <button class="bbtn" id="chat-back">← પાછળ</button>
+      </div>
+      <div class="hc">
+        <div class="htitle" id="chat-title">સમજા પરિવાર</div>
+        <div class="hsubt" id="chat-subt"></div>
+      </div>
+      <div class="hr">
+        <button class="voice-join-btn" id="voice-join-btn">🎙️ વૉઇસ</button>
+        <div class="ob"><span class="dot"></span><span id="oc">0</span></div>
+        <div class="mwrap">
+          <button class="mbtn" id="chat-mbtn"><span></span><span></span><span></span></button>
+          <div class="dd" id="chat-dd">
+            <button class="ditem" id="dd-invite">🔗 આમંત્રણ</button>
+            <button class="ditem" id="dd-members">👥 સભ્યો</button>
+            <button class="ditem red" id="dd-leave">🚪 રૂમ છોડો</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VOICE BAR -->
+    <div class="voice-bar" id="voice-bar">
+      <div class="voice-info">
+        <div class="call-wave"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="voice-status" id="voice-status">વૉઇસ સક્રિય</span>
+        <div class="voice-peers" id="voice-peers"></div>
+      </div>
+      <div class="voice-controls">
+        <button class="mic-btn" id="mic-toggle">
+          <svg id="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg>
+        </button>
+        <button class="end-call-btn" id="end-call-btn">કૉલ સમાપ્ત</button>
+      </div>
+    </div>
+
+    <div class="ma" id="ma">
+      <div class="es" id="es">// સુરક્ષિત ચેનલ ખુલ્લી છે<br>સંદેશાઓ કાયમી રહે છે</div>
+    </div>
+    <div class="ti" id="ti"></div>
+    <div class="ia" style="position:relative">
+      <div class="fp" id="fp"></div>
+      <div class="ir">
+        <button class="ab" id="ab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <input type="file" id="fi" accept="image/*" multiple>
+        <textarea class="mi2" id="mi2" placeholder="સંદેશ લખો..." rows="1"></textarea>
+        <button class="sb" id="sb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVITE MODAL -->
+  <div class="modal-bg" id="invite-modal">
+    <div class="modal" style="position:relative;">
+      <button class="modal-close" id="inv-close">✕</button>
+      <div class="modal-title">// આમંત્રણ લિંક</div>
+      <div class="url-box" id="inv-url"></div>
+      <button class="btn" id="inv-copy">લિંક કૉપિ કરો</button>
+    </div>
+  </div>
+
+  <!-- MEMBERS MODAL -->
+  <div class="modal-bg" id="members-modal">
+    <div class="modal" style="position:relative;">
+      <button class="modal-close" id="mem-close">✕</button>
+      <div class="modal-title">// સક્રિય સભ્યો</div>
+      <div id="members-list" style="max-height:260px;overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <div id="lb"><img id="lbi" src="" alt=""></div>
+  <div class="toast" id="toast"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getDatabase, ref, push, onValue, set, onDisconnect, serverTimestamp,
+      query, orderByChild, limitToLast, remove, get, update
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import {
+      getStorage, ref as sRef, uploadBytes, getDownloadURL, deleteObject, listAll
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+    const cfg = {
+      apiKey: "AIzaSyCustmjDoqtlYVDfoTnNwB5j-SE57stses",
+      authDomain: "noor-in.firebaseapp.com",
+      databaseURL: "https://noor-in-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "noor-in",
+      storageBucket: "noor-in.firebasestorage.app",
+      messagingSenderId: "164920618662",
+      appId: "1:164920618662:web:ae6282c7bf23ba71eace67"
+    };
+    const app = initializeApp(cfg), db = getDatabase(app), storage = getStorage(app);
+
+    // FIXED ROOM
+    const FIXED_ROOM_ID = "hx6qug5ims7yyour";
+    const FIXED_ROOM_PASSWORD = "181";
+
+    let myNick = '', myUid = '', currentRoom = null, currentRoomData = null;
+    let pendingFiles = [], typT = null;
+    const rendered = new Set();
+    let unsubMsgs = null, unsubPres = null, unsubTyp = null, unsubVoice = null, unsubRoomDel = null;
+
+    // Voice
+    let localStream = null, peerConnections = {}, isMuted = false, inCall = false;
+    const ICE_SERVERS = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    const genId = () => Math.random().toString(36).slice(2,10)+Date.now().toString(36);
+    const hashCode = async s => {
+      const b = new TextEncoder().encode(s);
+      const h = await crypto.subtle.digest('SHA-256', b);
+      return Array.from(new Uint8Array(h)).map(x => x.toString(16).padStart(2,'0')).join('').slice(0,16);
+    };
+    let tt;
+    function toast(m, d=3000) {
+      const e = $('toast'); e.textContent = m; e.classList.add('show');
+      clearTimeout(tt); tt = setTimeout(()=>e.classList.remove('show'), d);
+    }
+    function show(id) {
+      document.querySelectorAll('.scr').forEach(s => s.classList.add('off'));
+      $(id).classList.remove('off');
+    }
+
+    // Boot status
+    const bts = ['શરૂ થઈ રહ્યું છે...', 'એન્ક્રિપ્શન લોડ...', 'ઓળખ તૈયાર...', 'સિસ્ટમ તૈયાર ✓'];
+    let bi = 0;
+    const biv = setInterval(() => {
+      bi++; const e = $('bst-txt'); if (e && bi < bts.length) e.textContent = bts[bi];
+      if (bi >= bts.length-1) clearInterval(biv);
+    }, 700);
+
+    // Load saved nickname – if exists, skip nick screen
+    myNick = localStorage.getItem('gl_nick') || '';
+    myUid = localStorage.getItem('gl_uid') || ('u_' + Date.now().toString(36) + Math.random().toString(36).slice(2,8));
+    localStorage.setItem('gl_uid', myUid);
+
+    // Nickname setup (first time mandatory)
+    $('ni-btn').addEventListener('click', doSetNick);
+    $('ni').addEventListener('keydown', e => { if (e.key === 'Enter') doSetNick(); });
+
+    async function doSetNick() {
+      const n = $('ni').value.trim().replace(/[^a-zA-Z0-9_\u0964-\u097F\u0A80-\u0AFF]/g,'').slice(0,20);
+      if (!n) { toast('> માન્ય ઉપનામ દાખલ કરો'); $('ni').focus(); return; }
+      myNick = n;
+      localStorage.setItem('gl_nick', myNick);
+      await ensureRoomExists();
+      enterFixedRoom();
+    }
+
+    // Ensure the fixed room exists in DB
+    async function ensureRoomExists() {
+      const snap = await get(ref(db, 'rooms/'+FIXED_ROOM_ID));
+      if (!snap.exists()) {
+        const codeHash = await hashCode(FIXED_ROOM_PASSWORD);
+        const rd = {
+          id: FIXED_ROOM_ID,
+          name: 'સમજા પરિવાર',
+          type: 'private',
+          owner: 'system',
+          ownerNick: 'System',
+          codeHash,
+          createdAt: Date.now(),
+          members: {}
+        };
+        await set(ref(db, 'rooms/'+FIXED_ROOM_ID), rd);
+      }
+    }
+
+    // Enter the fixed room – add user as member if not already
+    async function enterFixedRoom() {
+      const snap = await get(ref(db, 'rooms/'+FIXED_ROOM_ID));
+      if (!snap.exists()) { toast('> રૂમ મળ્યો નથી'); return; }
+      const roomData = { ...snap.val(), id: FIXED_ROOM_ID };
+      if (!roomData.members || !roomData.members[myUid]) {
+        await update(ref(db, 'rooms/'+FIXED_ROOM_ID+'/members/'+myUid), {
+          nick: myNick, joinedAt: Date.now()
+        });
+        roomData.members = { ...(roomData.members || {}), [myUid]: { nick: myNick, joinedAt: Date.now() } };
+      }
+      enterRoom(FIXED_ROOM_ID, roomData);
+    }
+
+    // If nickname already exists, skip nick screen and go directly
+    if (myNick) {
+      ensureRoomExists().then(() => enterFixedRoom());
+    } else {
+      show('ns');
+    }
+
+    // ENTER ROOM
+    async function enterRoom(roomId, roomData) {
+      try {
+        const snap = await get(ref(db, 'rooms/'+roomId));
+        if (snap.exists()) roomData = { ...snap.val(), id: roomId };
+      } catch(e) {}
+      currentRoom = roomId; currentRoomData = roomData;
+      rendered.clear();
+      $('ma').innerHTML = '<div class="es" id="es">// સુરક્ષિત ચેનલ ખુલ્લી છે<br>સંદેશાઓ કાયમી રહે છે</div>';
+      $('chat-title').textContent = roomData.name || 'રૂમ';
+      $('chat-subt').textContent = '🔒 ખાનગી · સમજા પરિવાર';
+      show('cs');
+      watchConn(); updatePres(); watchRoomPres(); watchTyp(); listenMsgs(); watchRoomDeleted();
+    }
+
+    function watchConn() {
+      onValue(ref(db, '.info/connected'), s => {
+        if (s.val() === true) { updatePres(); }
+      });
+    }
+    function updatePres() {
+      if (!myUid || !myNick || !currentRoom) return;
+      const r = ref(db, 'presence/'+myUid);
+      set(r, { nick: myNick, room: currentRoom, ts: serverTimestamp() });
+      onDisconnect(r).remove();
+    }
+    function watchRoomPres() {
+      if (unsubPres) unsubPres();
+      unsubPres = onValue(ref(db, 'presence'), s => {
+        let c = 0;
+        if (s.exists()) s.forEach(x => { if (x.val().room === currentRoom) c++; });
+        $('oc').textContent = c;
+        $('total-online').textContent = c + ' ઓનલાઈન';
+      });
+    }
+    function watchTyp() {
+      if (unsubTyp) unsubTyp();
+      unsubTyp = onValue(ref(db, 'typing/'+currentRoom), s => {
+        if (!s.exists()) { $('ti').textContent = ''; return; }
+        const o = [];
+        s.forEach(c => { if (c.key !== myUid) o.push(c.val().nick || 'ઘોસ્ટ'); });
+        $('ti').textContent = !o.length ? '' : o.length === 1 ? '> '+o[0]+' લખી રહ્યા છે...' : '> '+o.length+' લખી રહ્યા છે...';
+      });
+    }
+    function setTyping() {
+      if (!myUid || !currentRoom) return;
+      set(ref(db, 'typing/'+currentRoom+'/'+myUid), { nick: myNick, ts: serverTimestamp() });
+      clearTimeout(typT);
+      typT = setTimeout(() => remove(ref(db, 'typing/'+currentRoom+'/'+myUid)), 3000);
+    }
+
+    // No auto-delete — messages are permanent
+    function listenMsgs() {
+      if (unsubMsgs) unsubMsgs();
+      const q = query(ref(db, 'rooms/'+currentRoom+'/messages'), orderByChild('createdAt'), limitToLast(100));
+      unsubMsgs = onValue(q, s => {
+        const live = new Set();
+        if (s.exists()) {
+          s.forEach(c => {
+            const m = { ...c.val(), _id: c.key };
+            live.add(m._id);
+            if (!rendered.has(m._id)) {
+              rendered.add(m._id);
+              const el = buildMsg(m);
+              const area = $('ma'), es = $('es');
+              if (es) es.remove();
+              area.appendChild(el);
+            }
+          });
+        }
+        rendered.forEach(id => {
+          if (!live.has(id)) {
+            const el = document.getElementById('m-'+id);
+            if (el) el.remove();
+            rendered.delete(id);
+          }
+        });
+        const area = $('ma');
+        if (!area.children.length) {
+          const d = document.createElement('div'); d.className = 'es'; d.id = 'es';
+          d.innerHTML = '// સુરક્ષિત ચેનલ ખુલ્લી છે<br>સંદેશાઓ કાયમી રહે છે';
+          area.appendChild(d);
+        }
+        area.scrollTop = area.scrollHeight;
+      });
+    }
+
+    function buildMsg(m) {
+      const own = m.uid === myUid;
+      if (m.type === 'system') {
+        const d = document.createElement('div'); d.className = 'sys-msg'; d.id = 'm-'+m._id;
+        d.textContent = m.text || ''; return d;
+      }
+      if (m.type === 'announcement') {
+        const wrap = document.createElement('div'); wrap.className = 'ann-msg'; wrap.id = 'm-'+m._id;
+        wrap.innerHTML = `<div class="ann-bubble"><div class="ann-header">📢 જાહેરાત</div><div class="ann-body">${esc(m.text || '')}</div><div class="ann-footer">${new Date(m.createdAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</div></div>`;
+        return wrap;
+      }
+      const row = document.createElement('div'); row.className = 'mr '+(own?'own':'other'); row.id = 'm-'+m._id;
+      const mt = document.createElement('div'); mt.className = 'mm';
+      const t = new Date(m.createdAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+      mt.innerHTML = own ? `<span style="opacity:0.5">${t}</span>` : `<span class="mnick">${esc(m.nick || 'ઘોસ્ટ')}</span><span style="opacity:0.5">${t}</span>`;
+      row.appendChild(mt);
+      const bb = document.createElement('div'); bb.className = 'mb';
+      if (m.type === 'image') {
+        const src = m.dataUrl || m.fileUrl || '';
+        const img = document.createElement('img'); img.className = 'mimg'; img.alt = 'img';
+        img.src = src;
+        if (m.fileSize) {
+          const sz = document.createElement('div'); sz.style.cssText = 'font-size:9px;color:var(--tf);margin-top:4px;font-weight:500;';
+          sz.textContent = m.fileSize+'KB'; bb.appendChild(img); bb.appendChild(sz);
+        } else bb.appendChild(img);
+        img.onclick = () => { $('lbi').src = src; $('lb').classList.add('open'); };
+        img.onerror = () => img.style.display = 'none';
+      } else {
+        bb.textContent = m.text || '';
+      }
+      row.appendChild(bb);
+      return row;
+    }
+
+    function watchRoomDeleted() {
+      if (unsubRoomDel) unsubRoomDel();
+      unsubRoomDel = onValue(ref(db, 'rooms/'+currentRoom), snap => {
+        if (!snap.exists() && currentRoom) {
+          toast('> રૂમ કાઢી નાખવામાં આવ્યો છે.', 4000);
+          endVoiceCall();
+          cleanup_leave();
+          show('hs');
+          loadHome();
+        }
+      });
+    }
+
+    // LEAVE / BACK
+    $('chat-back').addEventListener('click', () => leaveChat(false));
+    $('dd-leave').addEventListener('click', () => leaveChat(true));
+
+    async function leaveChat(removeMember = false) {
+      endVoiceCall();
+      if (unsubMsgs) unsubMsgs();
+      if (unsubPres) unsubPres();
+      if (unsubTyp) unsubTyp();
+      if (unsubVoice) unsubVoice();
+      if (unsubRoomDel) unsubRoomDel();
+      remove(ref(db, 'presence/'+myUid)).catch(()=>{});
+      remove(ref(db, 'typing/'+currentRoom+'/'+myUid)).catch(()=>{});
+      remove(ref(db, 'voice/'+currentRoom+'/'+myUid)).catch(()=>{});
+      if (removeMember && currentRoom) {
+        await remove(ref(db, 'rooms/'+currentRoom+'/members/'+myUid)).catch(()=>{});
+      }
+      cleanup_leave();
+      show('hs');
+      loadHome();
+    }
+
+    function cleanup_leave() {
+      currentRoom = null; currentRoomData = null;
+      rendered.clear();
+      pendingFiles = []; $('fp').innerHTML = ''; $('mi2').value = '';
+      $('voice-bar').classList.remove('active');
+      $('voice-join-btn').classList.remove('in-call');
+      $('voice-join-btn').innerHTML = '🎙️ વૉઇસ';
+    }
+
+    // HOME - only shows the fixed room
+    function loadHome() {
+      $('hn-display').textContent = myNick;
+      const list = $('groups-list');
+      get(ref(db, 'rooms/'+FIXED_ROOM_ID)).then(snap => {
+        if (!snap.exists()) {
+          list.innerHTML = '<div class="no-groups">રૂમ લોડ થઈ રહ્યું છે...</div>';
+          return;
+        }
+        const r = { ...snap.val(), id: FIXED_ROOM_ID };
+        const isMember = r.members && r.members[myUid];
+        const mc = r.members ? Object.keys(r.members).length : 0;
+        const item = document.createElement('div'); item.className = 'group-item';
+        item.innerHTML = `<div class="gi-left"><div class="gi-name">${esc(r.name)}</div><div class="gi-meta"><span class="tag tag-prv">🔒 ખાનગી</span><span>${mc} સભ્યો</span></div></div><div>${isMember ? '✅ જોડાયેલ' : '👉 જોડાઓ'}</div>`;
+        item.addEventListener('click', () => {
+          if (isMember) enterFixedRoom();
+          else {
+            update(ref(db, 'rooms/'+FIXED_ROOM_ID+'/members/'+myUid), { nick: myNick, joinedAt: Date.now() })
+              .then(() => enterFixedRoom());
+          }
+        });
+        list.innerHTML = '';
+        list.appendChild(item);
+      }).catch(() => { list.innerHTML = '<div class="no-groups">ભૂલ</div>'; });
+    }
+
+    // If we are in home, load the room
+    if (!myNick) {
+      show('ns');
+    } else {
+      loadHome();
+    }
+
+    // ---- VOICE ----
+    $('voice-join-btn').addEventListener('click', () => {
+      if (inCall) endVoiceCall();
+      else startVoiceCall();
+    });
+    $('end-call-btn').addEventListener('click', endVoiceCall);
+    $('mic-toggle').addEventListener('click', toggleMic);
+
+    async function startVoiceCall() {
+      if (!currentRoom) { toast('> પહેલા રૂમમાં જોડાઓ'); return; }
+      try {
+        localStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+        inCall = true; isMuted = false;
+        updateMicUI();
+        $('voice-bar').classList.add('active');
+        $('voice-join-btn').classList.add('in-call');
+        $('voice-join-btn').innerHTML = '🔴 કૉલમાં';
+        const myVoiceRef = ref(db, 'voice/'+currentRoom+'/'+myUid);
+        await set(myVoiceRef, { nick: myNick, joined: Date.now(), muted: false });
+        onDisconnect(myVoiceRef).remove();
+        watchVoiceRoom();
+        toast('> વૉઇસ કૉલ શરૂ થયો.', 2000);
+      } catch(e) { toast('> માઇક ઍક્સેસ નામંજૂર'); console.error(e); }
+    }
+
+    function endVoiceCall() {
+      if (!inCall && !localStream) return;
+      inCall = false;
+      if (localStream) { localStream.getTracks().forEach(t => t.stop()); localStream = null; }
+      Object.values(peerConnections).forEach(pc => { try { pc.close(); } catch(e) {} });
+      peerConnections = {};
+      document.querySelectorAll('.remote-audio').forEach(a => a.remove());
+      if (currentRoom) {
+        remove(ref(db, 'voice/'+currentRoom+'/'+myUid)).catch(()=>{});
+        remove(ref(db, 'signals/'+currentRoom+'/'+myUid)).catch(()=>{});
+      }
+      if (unsubVoice) { unsubVoice(); unsubVoice = null; }
+      $('voice-bar').classList.remove('active');
+      $('voice-join-btn').classList.remove('in-call');
+      $('voice-join-btn').innerHTML = '🎙️ વૉઇસ';
+      $('voice-peers').innerHTML = '';
+      $('voice-status').textContent = 'વૉઇસ સક્રિય';
+      isMuted = false;
+    }
+
+    function toggleMic() {
+      if (!localStream) return;
+      isMuted = !isMuted;
+      localStream.getAudioTracks().forEach(t => t.enabled = !isMuted);
+      if (currentRoom) update(ref(db, 'voice/'+currentRoom+'/'+myUid), { muted: isMuted }).catch(()=>{});
+      updateMicUI();
+      toast(isMuted ? '🔇 માઇક મ્યૂટ' : '🎤 માઇક અનમ્યૂટ', 1500);
+    }
+
+    function updateMicUI() {
+      const btn = $('mic-toggle'), icon = $('mic-icon');
+      if (isMuted) {
+        btn.classList.add('muted');
+        icon.innerHTML = `<line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 005.12 2.12M15 9.34V4a3 3 0 00-5.94-.6"/><path d="M17 16.95A7 7 0 015 12v-2m14 0v2a7 7 0 01-.11 1.23M12 19v4M8 23h8"/>`;
+      } else {
+        btn.classList.remove('muted');
+        icon.innerHTML = `<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/>`;
+      }
+    }
+
+    function watchVoiceRoom() {
+      if (unsubVoice) unsubVoice();
+      unsubVoice = onValue(ref(db, 'voice/'+currentRoom), async snap => {
+        const participants = {};
+        if (snap.exists()) snap.forEach(c => { participants[c.key] = { ...c.val() }; });
+        updateVoicePeersUI(participants);
+        for (const pid of Object.keys(participants)) {
+          if (pid === myUid) continue;
+          if (!peerConnections[pid]) await connectToPeer(pid, pid > myUid);
+        }
+        for (const pid of Object.keys(peerConnections)) {
+          if (!participants[pid]) {
+            try { peerConnections[pid].close(); } catch(e) {}
+            delete peerConnections[pid];
+            const audio = document.getElementById('audio-'+pid);
+            if (audio) audio.remove();
+          }
+        }
+        const count = Object.keys(participants).length;
+        $('voice-status').textContent = count+' કૉલમાં';
+      });
+      onValue(ref(db, 'signals/'+currentRoom+'/'+myUid), async snap => {
+        if (!snap.exists()) return;
+        snap.forEach(async child => {
+          const signal = child.val();
+          const fromId = signal.from;
+          if (!fromId || fromId === myUid) return;
+          if (signal.type === 'offer') { await handleOffer(fromId, signal); remove(child.ref).catch(()=>{}); }
+          else if (signal.type === 'answer') { await handleAnswer(fromId, signal); remove(child.ref).catch(()=>{}); }
+          else if (signal.type === 'ice') { await handleIce(fromId, signal); remove(child.ref).catch(()=>{}); }
+        });
+      });
+    }
+
+    function updateVoicePeersUI(participants) {
+      const container = $('voice-peers'); container.innerHTML = '';
+      for (const [pid, p] of Object.entries(participants)) {
+        const peer = document.createElement('div'); peer.className = 'voice-peer';
+        peer.textContent = (p.muted ? '🔇 ' : '🎙️ ') + (p.nick || 'ઘોસ્ટ') + (pid === myUid ? ' (તમે)' : '');
+        if (pid === myUid) peer.style.borderColor = 'var(--g)';
+        container.appendChild(peer);
+      }
+    }
+
+    async function connectToPeer(peerId, initiator) {
+      if (peerConnections[peerId]) return;
+      const pc = new RTCPeerConnection(ICE_SERVERS);
+      peerConnections[peerId] = pc;
+      if (localStream) localStream.getTracks().forEach(t => pc.addTrack(t, localStream));
+      pc.ontrack = e => {
+        let audio = document.getElementById('audio-'+peerId);
+        if (!audio) {
+          audio = document.createElement('audio');
+          audio.id = 'audio-'+peerId;
+          audio.className = 'remote-audio';
+          audio.autoplay = true; audio.playsInline = true;
+          document.body.appendChild(audio);
+        }
+        audio.srcObject = e.streams[0];
+      };
+      pc.onicecandidate = e => {
+        if (!e.candidate) return;
+        push(ref(db, 'signals/'+currentRoom+'/'+peerId), { type: 'ice', from: myUid, candidate: e.candidate.toJSON() }).catch(()=>{});
+      };
+      pc.onconnectionstatechange = () => {
+        if (pc.connectionState === 'failed' || pc.connectionState === 'closed') {
+          try { pc.close(); } catch(e) {}
+          delete peerConnections[peerId];
+        }
+      };
+      if (initiator) {
+        const offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+        push(ref(db, 'signals/'+currentRoom+'/'+peerId), { type: 'offer', from: myUid, sdp: offer.sdp }).catch(()=>{});
+      }
+    }
+
+    async function handleOffer(fromId, signal) {
+      if (!peerConnections[fromId]) await connectToPeer(fromId, false);
+      const pc = peerConnections[fromId];
+      if (!pc) return;
+      try {
+        await pc.setRemoteDescription(new RTCSessionDescription({ type: 'offer', sdp: signal.sdp }));
+        const answer = await pc.createAnswer();
+        await pc.setLocalDescription(answer);
+        push(ref(db, 'signals/'+currentRoom+'/'+fromId), { type: 'answer', from: myUid, sdp: answer.sdp }).catch(()=>{});
+      } catch(e) { console.error('offer error', e); }
+    }
+
+    async function handleAnswer(fromId, signal) {
+      const pc = peerConnections[fromId];
+      if (!pc) return;
+      try {
+        if (pc.signalingState === 'have-local-offer')
+          await pc.setRemoteDescription(new RTCSessionDescription({ type: 'answer', sdp: signal.sdp }));
+      } catch(e) { console.error('answer error', e); }
+    }
+
+    async function handleIce(fromId, signal) {
+      const pc = peerConnections[fromId];
+      if (!pc || !signal.candidate) return;
+      try { await pc.addIceCandidate(new RTCIceCandidate(signal.candidate)); } catch(e) { console.error('ice error', e); }
+    }
+
+    // ---- SEND MESSAGE ----
+    async function sendMsg() {
+      const inp = $('mi2'), text = inp.value.trim(), btn = $('sb');
+      if (!text && !pendingFiles.length) return;
+      if (!currentRoom) return;
+
+      btn.classList.add('loading');
+      try {
+        for (const file of pendingFiles) {
+          const compressed = await compressImage(file);
+          await push(ref(db, 'rooms/'+currentRoom+'/messages'), {
+            uid: myUid, nick: myNick, type: 'image',
+            dataUrl: compressed.dataUrl, fileName: file.name,
+            fileSize: compressed.finalKB,
+            createdAt: Date.now(), serverTs: serverTimestamp()
+          });
+        }
+        if (text) {
+          await push(ref(db, 'rooms/'+currentRoom+'/messages'), {
+            uid: myUid, nick: myNick, type: 'text',
+            text: text, createdAt: Date.now(), serverTs: serverTimestamp()
+          });
+          inp.value = ''; inp.style.height = 'auto';
+        }
+        pendingFiles = []; $('fp').innerHTML = '';
+      } catch(e) { toast('> ભૂલ: '+e.message); console.error(e); }
+      btn.classList.remove('loading');
+    }
+
+    const MAX_IMG_PX = 2160, IMG_QUALITY = 0.99, MAX_IMG_KB = 900;
+    async function compressImage(file) {
+      return new Promise((resolve, reject) => {
+        const img = new Image(), url = URL.createObjectURL(file);
+        img.onload = () => {
+          URL.revokeObjectURL(url);
+          let { width: w, height: h } = img;
+          if (w > MAX_IMG_PX || h > MAX_IMG_PX) {
+            if (w > h) { h = Math.round(h*MAX_IMG_PX/w); w = MAX_IMG_PX; }
+            else { w = Math.round(w*MAX_IMG_PX/h); h = MAX_IMG_PX; }
+          }
+          const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+          cv.getContext('2d').drawImage(img, 0, 0, w, h);
+          let q = IMG_QUALITY, dataUrl = cv.toDataURL('image/jpeg', q);
+          while (dataUrl.length > MAX_IMG_KB*1024*1.37 && q > 0.2) { q -= 0.1; dataUrl = cv.toDataURL('image/jpeg', q); }
+          resolve({ dataUrl, origKB: Math.round(file.size/1024), finalKB: Math.round(dataUrl.length*0.75/1024), w, h });
+        };
+        img.onerror = reject; img.src = url;
+      });
+    }
+
+    $('sb').addEventListener('click', sendMsg);
+    $('mi2').addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+    });
+    $('mi2').addEventListener('input', () => {
+      const el = $('mi2'); el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 110)+'px';
+      setTyping();
+    });
+
+    // FILE
+    $('ab').addEventListener('click', () => $('fi').click());
+    $('fi').addEventListener('change', e => {
+      Array.from(e.target.files).forEach(f => {
+        if (f.size > 10*1024*1024) { toast('> મહત્તમ 10MB'); return; }
+        pendingFiles.push(f);
+        const strip = $('fp'), item = document.createElement('div'); item.className = 'fpi';
+        const rm = () => { pendingFiles = pendingFiles.filter(x => x !== f); item.remove(); };
+        if (f.type.startsWith('image/')) {
+          const r = new FileReader();
+          r.onload = ev => {
+            item.innerHTML = `<img src="${ev.target.result}"><span>${esc(f.name)}</span>`;
+            const b = document.createElement('button'); b.className = 'rf'; b.textContent = '✕'; b.onclick = rm; item.appendChild(b);
+          };
+          r.readAsDataURL(f);
+        } else {
+          item.innerHTML = `<span>📄 ${esc(f.name)}</span>`;
+          const b = document.createElement('button'); b.className = 'rf'; b.textContent = '✕'; b.onclick = rm; item.appendChild(b);
+        }
+        strip.appendChild(item);
+      });
+      e.target.value = '';
+    });
+
+    // MENUS
+    $('chat-mbtn').addEventListener('click', e => { e.stopPropagation(); $('chat-dd').classList.toggle('open'); });
+    document.addEventListener('click', () => document.querySelectorAll('.dd').forEach(d => d.classList.remove('open')));
+
+    // INVITE
+    $('dd-invite').addEventListener('click', () => {
+      if (!currentRoom) return;
+      const url = location.origin + location.pathname + '?room=' + currentRoom;
+      $('inv-url').textContent = url;
+      $('invite-modal').classList.add('open');
+    });
+    $('inv-copy').addEventListener('click', () => {
+      const url = $('inv-url').textContent;
+      navigator.clipboard.writeText(url).then(() => toast('> લિંક કૉપિ થઈ!'))
+        .catch(() => { const ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('> લિંક કૉપિ થઈ!'); });
+    });
+    $('inv-close').addEventListener('click', () => $('invite-modal').classList.remove('open'));
+    $('invite-modal').addEventListener('click', e => { if (e.target === $('invite-modal')) $('invite-modal').classList.remove('open'); });
+
+    // MEMBERS
+    $('dd-members').addEventListener('click', () => {
+      if (!currentRoom) return;
+      get(ref(db, 'rooms/'+currentRoom+'/members')).then(s => {
+        const list = $('members-list'); list.innerHTML = '';
+        if (!s.exists()) { list.innerHTML = '<div style="color:var(--tf);padding:16px;text-align:center">કોઈ સભ્યો નથી</div>'; return; }
+        s.forEach(c => {
+          const m = c.val(), isOwner = currentRoomData && currentRoomData.owner === c.key;
+          const div = document.createElement('div');
+          div.style.cssText = 'padding:10px 0;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;';
+          div.innerHTML = `<span style="font-weight:600;">${esc(m.nick || 'ઘોસ્ટ')}</span>${isOwner ? '<span style="color:var(--gd);font-size:11px;">👑 માલિક</span>' : ''}`;
+          list.appendChild(div);
+        });
+      });
+      $('members-modal').classList.add('open');
+    });
+    $('mem-close').addEventListener('click', () => $('members-modal').classList.remove('open'));
+    $('members-modal').addEventListener('click', e => { if (e.target === $('members-modal')) $('members-modal').classList.remove('open'); });
+
+    // LIGHTBOX
+    $('lb').addEventListener('click', () => { $('lb').classList.remove('open'); $('lbi').src = ''; });
+
+    // HOME menu
+    $('home-mbtn').addEventListener('click', e => { e.stopPropagation(); $('home-dd').classList.toggle('open'); });
+
+    console.log('સમજા પરિવાર શરૂ થયો!');
+  </script>
+</body>
+</html>
