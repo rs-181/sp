@@ -910,7 +910,6 @@
         <div class="mwrap">
           <button class="mbtn" id="chat-mbtn"><span></span><span></span><span></span></button>
           <div class="dd" id="chat-dd">
-            <button class="ditem" id="dd-invite">🔗 આમંત્રણ</button>
             <button class="ditem" id="dd-members">👥 સભ્યો</button>
             <button class="ditem red" id="dd-leave">🚪 રૂમ છોડો</button>
           </div>
@@ -945,16 +944,6 @@
         <textarea class="mi2" id="mi2" placeholder="સંદેશ લખો..." rows="1"></textarea>
         <button class="sb" id="sb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
       </div>
-    </div>
-  </div>
-
-  <!-- INVITE MODAL -->
-  <div class="modal-bg" id="invite-modal">
-    <div class="modal" style="position:relative;">
-      <button class="modal-close" id="inv-close">✕</button>
-      <div class="modal-title">// આમંત્રણ લિંક</div>
-      <div class="url-box" id="inv-url"></div>
-      <button class="btn" id="inv-copy">લિંક કૉપિ કરો</button>
     </div>
   </div>
 
@@ -1541,21 +1530,6 @@
     // MENUS
     $('chat-mbtn').addEventListener('click', e => { e.stopPropagation(); $('chat-dd').classList.toggle('open'); });
     document.addEventListener('click', () => document.querySelectorAll('.dd').forEach(d => d.classList.remove('open')));
-
-    // INVITE
-    $('dd-invite').addEventListener('click', () => {
-      if (!currentRoom) return;
-      const url = location.origin + location.pathname + '?room=' + currentRoom;
-      $('inv-url').textContent = url;
-      $('invite-modal').classList.add('open');
-    });
-    $('inv-copy').addEventListener('click', () => {
-      const url = $('inv-url').textContent;
-      navigator.clipboard.writeText(url).then(() => toast('> લિંક કૉપિ થઈ!'))
-        .catch(() => { const ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('> લિંક કૉપિ થઈ!'); });
-    });
-    $('inv-close').addEventListener('click', () => $('invite-modal').classList.remove('open'));
-    $('invite-modal').addEventListener('click', e => { if (e.target === $('invite-modal')) $('invite-modal').classList.remove('open'); });
 
     // MEMBERS
     $('dd-members').addEventListener('click', () => {
