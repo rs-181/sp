@@ -3,6 +3,7 @@ const ASSETS = [
   '.',
   'index.html',
   'manifest.json',
+  'chat.html',
   'icon-512.png',
   'insta1.jpg',
   'insta2.jpg',
