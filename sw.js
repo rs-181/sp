@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sameja-family-v2';
+const CACHE_NAME = 'sameja-family-v3';
 const ASSETS = [
   '.',
   'index.html',
