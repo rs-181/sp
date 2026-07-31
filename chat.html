@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>સમજા પરિવાર</title>
+  <title>સમેજા પરિવાર</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -268,16 +268,58 @@
     }
 
     .hdr {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 14px;
-      background: var(--s);
-      border-bottom: 1px solid var(--bd);
-      flex-shrink: 0;
-      min-height: 56px;
-      gap: 8px;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: var(--s);
+  border-bottom: 1px solid var(--bd);
+  flex-shrink: 0;
+  min-height: 56px;
+  gap: 6px;
+}
+.hl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.hc {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.3;
+}
+.hr {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* નાના સ્ક્રીન માટે */
+@media (max-width: 480px) {
+  .hdr {
+    padding: 4px 8px;
+    min-height: 48px;
+    gap: 4px;
+  }
+  .hl .bbtn {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+  .hr .ob {
+    font-size: 9px;
+  }
+  .hr .voice-join-btn {
+    font-size: 8px;
+    padding: 4px 8px;
+  }
+}
     .htitle {
       font-weight: 700;
       font-size: 15px;
@@ -811,7 +853,7 @@
   <!-- NICKNAME (First time mandatory) -->
   <div class="scr" id="ns">
     <div class="box">
-      <div class="logo">સમજા <span>પરિવાર</span></div>
+      <div class="logo">સમેજા <span>પરિવાર</span></div>
       <div class="sub">અજ્ઞાત · કાયમી · સુરક્ષિત</div>
       <div class="lbl">// તમારું ઉપનામ દાખલ કરો (કાયમી)</div>
       <input class="inp" id="ni" type="text" placeholder="ઉપનામ લખો..." maxlength="20" autocomplete="off" spellcheck="false">
@@ -854,7 +896,7 @@
         <button class="bbtn" id="chat-back">← પાછળ</button>
       </div>
       <div class="hc">
-        <div class="htitle" id="chat-title">સમજા પરિવાર</div>
+        <div class="htitle" id="chat-title">સમેજા પરિવાર</div>
         <div class="hsubt" id="chat-subt"></div>
       </div>
       <div class="hr">
@@ -945,7 +987,7 @@
     const app = initializeApp(cfg), db = getDatabase(app), storage = getStorage(app);
 
     // FIXED ROOM
-    const FIXED_ROOM_ID = "hx6qug5ims7yyour";
+    const FIXED_ROOM_ID = "6b5sr0qrms8mb15k";
     const FIXED_ROOM_PASSWORD = "181";
 
     let myNick = '', myUid = '', currentRoom = null, currentRoomData = null;
@@ -1008,7 +1050,7 @@
         const codeHash = await hashCode(FIXED_ROOM_PASSWORD);
         const rd = {
           id: FIXED_ROOM_ID,
-          name: 'સમજા પરિવાર',
+          name: 'સમેજા પરિવાર',
           type: 'private',
           owner: 'system',
           ownerNick: 'System',
@@ -1051,7 +1093,7 @@
       rendered.clear();
       $('ma').innerHTML = '<div class="es" id="es">// સુરક્ષિત ચેનલ ખુલ્લી છે<br>સંદેશાઓ કાયમી રહે છે</div>';
       $('chat-title').textContent = roomData.name || 'રૂમ';
-      $('chat-subt').textContent = '🔒 ખાનગી · સમજા પરિવાર';
+      $('chat-subt').textContent = '🔒 ખાનગી · સમેજા પરિવાર';
       show('cs');
       watchConn(); updatePres(); watchRoomPres(); watchTyp(); listenMsgs(); watchRoomDeleted();
     }
@@ -1535,7 +1577,7 @@
     // HOME menu
     $('home-mbtn').addEventListener('click', e => { e.stopPropagation(); $('home-dd').classList.toggle('open'); });
 
-    console.log('સમજા પરિવાર શરૂ થયો!');
+    console.log('સમેજા પરિવાર શરૂ થયો!');
   </script>
 </body>
 </html>
