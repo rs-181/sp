@@ -59,12 +59,90 @@ html, body {
 }
 
 /* ================================================================
+   TUTORIAL POPUP - First time only
+   ================================================================ */
+#tutorial-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.5s ease;
+}
+
+#tutorial-popup.show {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.tutorial-popup-content {
+  max-width: 400px;
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.tutorial-popup-content img {
+  width: 100%;
+  display: block;
+}
+
+.tutorial-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.tutorial-popup-close:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+.tutorial-popup-footer {
+  padding: 16px 20px;
+  text-align: center;
+  background: #fff;
+}
+
+.tutorial-popup-footer h3 {
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.tutorial-popup-footer p {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ================================================================
    INSTALL OVERLAY
    ================================================================ */
 #install-overlay {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+  z-index: 99998;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   display: flex;
   flex-direction: column;
@@ -189,7 +267,7 @@ html, body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-  z-index: 9998;
+  z-index: 99997;
   transition: opacity 0.6s ease;
 }
 
@@ -417,24 +495,6 @@ html, body {
   object-fit: cover;
 }
 
-.post-image .img-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-  color: var(--text-secondary);
-  font-size: 14px;
-}
-
-.post-image .img-placeholder i {
-  font-size: 48px;
-  margin-bottom: 8px;
-  color: var(--primary);
-}
-
 .post-actions {
   display: flex;
   padding: 6px 12px 4px;
@@ -452,6 +512,7 @@ html, body {
   gap: 6px;
   color: var(--text);
   font-family: inherit;
+  transition: color 0.2s;
 }
 
 .post-action-btn.liked {
@@ -459,8 +520,7 @@ html, body {
 }
 
 .post-action-btn .count {
-  font-size: 12px;
-  font-weight: 500;
+  display: none !important;
 }
 
 .post-caption {
@@ -623,7 +683,7 @@ html, body {
   padding: 10px 20px;
   border-radius: 8px;
   font-size: 13px;
-  z-index: 9998;
+  z-index: 9996;
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease;
@@ -642,7 +702,7 @@ html, body {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.92);
-  z-index: 9997;
+  z-index: 9995;
   display: none;
   align-items: center;
   justify-content: center;
@@ -713,6 +773,20 @@ html, body {
 </style>
 </head>
 <body>
+
+<!-- ============================================================
+     TUTORIAL POPUP - First time only
+     ============================================================ -->
+<div id="tutorial-popup">
+  <div class="tutorial-popup-content">
+    <button class="tutorial-popup-close" id="tutorial-close"><i class="fas fa-times"></i></button>
+    <img src="t5.jpg" alt="Tutorial" id="tutorial-img">
+    <div class="tutorial-popup-footer">
+      <h3>📚 સ્વાગત છે!</h3>
+      <p>એપનો ઉપયોગ કેવી રીતે કરવો તે જાણવા માટે આ ટ્યુટોરિયલ જુઓ</p>
+    </div>
+  </div>
+</div>
 
 <!-- ============================================================
      INSTALL OVERLAY
@@ -838,28 +912,10 @@ html, body {
   <img id="lb-img" src="" alt="">
 </div>
 
-<script type="module">
+<script>
 // ============================================================
-// FIREBASE CONFIG
+// NO FIREBASE - Pure Static App
 // ============================================================
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {
-  getDatabase, ref, push, onValue, set, get, remove,
-  query, orderByChild, limitToLast
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCustmjDoqtlYVDfoTnNwB5j-SE57stses",
-  authDomain: "noor-in.firebaseapp.com",
-  databaseURL: "https://noor-in-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "noor-in",
-  storageBucket: "noor-in.firebasestorage.app",
-  messagingSenderId: "164920618662",
-  appId: "1:164920618662:web:ae6282c7bf23ba71eace67"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
 // ============================================================
 // DOM REFS
@@ -878,38 +934,26 @@ const toastEl = $('toast');
 const lightbox = $('lightbox');
 const lbImg = $('lb-img');
 const closeLb = $('close-lb');
+const tutorialPopup = $('tutorial-popup');
+const tutorialClose = $('tutorial-close');
 
 // ============================================================
 // APP STATE
 // ============================================================
 const STATE = {
   currentPage: 'page-home',
-  myUid: 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-  myNick: 'યુઝર_' + Math.floor(1000 + Math.random() * 9000),
   isInstalled: false,
+  likedPosts: JSON.parse(localStorage.getItem('sp_likes') || '{}')
 };
-
-// Save/load user
-const saved = localStorage.getItem('sp_user');
-if (saved) {
-  try {
-    const d = JSON.parse(saved);
-    STATE.myUid = d.uid || STATE.myUid;
-    STATE.myNick = d.nick || STATE.myNick;
-  } catch(e) {}
-}
-localStorage.setItem('sp_user', JSON.stringify({ uid: STATE.myUid, nick: STATE.myNick }));
 
 // ============================================================
 // CHECK IF INSTALLED (PWA Mode)
 // ============================================================
 function checkIfInstalled() {
-  // Check if running in standalone mode (PWA installed)
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
                        window.matchMedia('(display-mode: fullscreen)').matches ||
                        window.navigator.standalone === true;
   
-  // Check if already installed flag in localStorage
   const alreadyInstalled = localStorage.getItem('sp_installed') === 'true';
   
   STATE.isInstalled = isStandalone || alreadyInstalled;
@@ -951,8 +995,6 @@ function navigateTo(pageId) {
   });
 
   STATE.currentPage = pageId;
-  if (pageId === 'page-profiles') loadProfiles();
-  if (pageId === 'page-tutorials') loadTutorials();
 }
 
 navItems.forEach(item => {
@@ -970,7 +1012,7 @@ setTimeout(() => {
 }, 1500);
 
 // ============================================================
-// STATIC POSTS with JPG Images
+// STATIC POSTS
 // ============================================================
 const STATIC_POSTS = [
   {
@@ -985,9 +1027,7 @@ const STATIC_POSTS = [
 
 💬 મિત્રો સાથે જોડાઓ અને મજા કરો!
 #સમેજાપરિવાર`,
-    createdAt: Date.now() - 3600000,
-    likes: { 'dummy': true },
-    isStatic: true
+    createdAt: Date.now() - 3600000
   },
   {
     id: 'post_2',
@@ -1011,9 +1051,7 @@ const STATIC_POSTS = [
 4. 🔧 સમય ફેબ્રિકેશન (અહેમદ સમા)
    🌐 samay-fabrication.netlify.app
    📞 +91 97147 24797`,
-    createdAt: Date.now() - 7200000,
-    likes: { 'dummy2': true },
-    isStatic: true
+    createdAt: Date.now() - 7200000
   },
   {
     id: 'post_3',
@@ -1025,8 +1063,6 @@ const STATIC_POSTS = [
 👇 ગેમ રમવા માટે નીચે બટન દબાવો
 ગેમ રમો અને ફન કરો! 🎉`,
     createdAt: Date.now() - 10800000,
-    likes: { 'dummy3': true },
-    isStatic: true,
     hasGame: true
   }
 ];
@@ -1034,8 +1070,6 @@ const STATIC_POSTS = [
 // ============================================================
 // PAGE 1: POSTS
 // ============================================================
-const POST_TTL = 5 * 24 * 60 * 60 * 1000;
-
 function renderPost(post) {
   const div = document.createElement('div');
   div.className = 'post';
@@ -1045,9 +1079,7 @@ function renderPost(post) {
     day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' 
   });
 
-  const likes = post.likes || {};
-  const likeCount = Object.keys(likes).length;
-  const isLiked = !!likes[STATE.myUid];
+  const isLiked = STATE.likedPosts[post.id] || false;
 
   let captionHtml = post.caption || '';
   captionHtml = captionHtml.replace(/\n/g, '<br>');
@@ -1077,7 +1109,7 @@ function renderPost(post) {
     <div class="post-image">${imageHtml}</div>
     <div class="post-actions">
       <button class="post-action-btn ${isLiked ? 'liked' : ''}" onclick="window.toggleLike('${post.id}')">
-        <i class="${isLiked ? 'fas' : 'far'} fa-heart"></i> <span class="count">${likeCount}</span>
+        <i class="${isLiked ? 'fas' : 'far'} fa-heart"></i> <span class="count">❤️</span>
       </button>
       <button class="post-action-btn" onclick="window.sharePost('${post.id}')"><i class="fas fa-share-alt"></i></button>
       <button class="post-action-btn" onclick="window.downloadPost('${post.id}')"><i class="fas fa-download"></i></button>
@@ -1098,16 +1130,16 @@ window.openLightbox = (src) => {
   lightbox.classList.add('open');
 };
 
-window.toggleLike = async (postId) => {
-  const postRef = ref(db, `posts/${postId}/likes/${STATE.myUid}`);
-  const snap = await get(postRef);
-  if (snap.exists()) {
-    await remove(postRef);
+window.toggleLike = (postId) => {
+  if (STATE.likedPosts[postId]) {
+    delete STATE.likedPosts[postId];
     showToast('❤️ લાઇક દૂર કર્યું');
   } else {
-    await set(postRef, true);
+    STATE.likedPosts[postId] = true;
     showToast('❤️ લાઇક કર્યું');
   }
+  localStorage.setItem('sp_likes', JSON.stringify(STATE.likedPosts));
+  loadPosts();
 };
 
 window.sharePost = (postId) => {
@@ -1120,94 +1152,34 @@ window.sharePost = (postId) => {
 };
 
 window.downloadPost = async (postId) => {
-  const staticPost = STATIC_POSTS.find(p => p.id === postId);
-  if (staticPost) {
-    if (staticPost.image) {
-      try {
-        const res = await fetch(staticPost.image);
-        const blob = await res.blob();
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = staticPost.image;
-        a.click();
-        URL.revokeObjectURL(a.href);
-        showToast('⬇️ ડાઉનલોડ શરૂ થયું');
-      } catch(e) {
-        showToast('ડાઉનલોડ નિષ્ફળ');
-      }
-    } else {
-      showToast('📝 આ પોસ્ટમાં ડાઉનલોડ કરવા માટે કોઈ ઇમેજ નથી');
-    }
-    return;
-  }
-  
-  const snap = await get(ref(db, `posts/${postId}`));
-  if (!snap.exists()) { 
-    showToast('પોસ્ટ મળી નહીં'); 
-    return; 
-  }
-  const post = snap.val();
-  if (post.image) {
+  const post = STATIC_POSTS.find(p => p.id === postId);
+  if (post && post.image) {
     try {
       const res = await fetch(post.image);
       const blob = await res.blob();
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = `post_${postId}.jpg`;
+      a.download = post.image;
       a.click();
       URL.revokeObjectURL(a.href);
       showToast('⬇️ ડાઉનલોડ શરૂ થયું');
     } catch(e) {
       showToast('ડાઉનલોડ નિષ્ફળ');
     }
+  } else {
+    showToast('📝 આ પોસ્ટમાં ડાઉનલોડ કરવા માટે કોઈ ઇમેજ નથી');
   }
 };
 
 function loadPosts() {
-  const staticPostsHtml = STATIC_POSTS.map(p => renderPost(p));
-  
-  const q = query(ref(db, 'posts'), orderByChild('createdAt'), limitToLast(50));
-  onValue(q, (snap) => {
-    const now = Date.now();
-    const firebasePosts = [];
-    if (snap.exists()) {
-      snap.forEach(child => {
-        const p = child.val();
-        if (now - p.createdAt > POST_TTL) {
-          remove(ref(db, `posts/${child.key}`)).catch(() => {});
-          return;
-        }
-        firebasePosts.push({ ...p, id: child.key });
-      });
-    }
-    firebasePosts.sort((a, b) => b.createdAt - a.createdAt);
-    
-    const allPosts = [...staticPostsHtml, ...firebasePosts];
-
-    if (allPosts.length === 0) {
-      postsContainer.innerHTML = `
-        <div class="empty-state">
-          <div class="icon"><i class="fas fa-camera"></i></div>
-          <h3>કોઈ પોસ્ટ નથી</h3>
-          <p>હજુ સુધી કોઈ પોસ્ટ શેર કરવામાં આવી નથી.</p>
-        </div>
-      `;
-      return;
-    }
-
-    postsContainer.innerHTML = '';
-    allPosts.forEach(p => {
-      if (p instanceof HTMLElement) {
-        postsContainer.appendChild(p);
-      } else {
-        postsContainer.appendChild(renderPost(p));
-      }
-    });
+  postsContainer.innerHTML = '';
+  STATIC_POSTS.forEach(p => {
+    postsContainer.appendChild(renderPost(p));
   });
 }
 
 // ============================================================
-// PAGE 2: PROFILES (JPG Images)
+// PAGE 2: PROFILES
 // ============================================================
 const PROFILES = [
   { id: 'rehan_sandhi_181', name: 'rehan_sandhi_181', file: 'insta1.jpg' },
@@ -1228,7 +1200,7 @@ function loadProfiles() {
 }
 
 // ============================================================
-// PAGE 5: TUTORIALS (JPG Images)
+// PAGE 5: TUTORIALS
 // ============================================================
 const TUTORIALS = [
   { id: 't1', label: 'Home', file: 't1.jpg' },
@@ -1246,6 +1218,30 @@ function loadTutorials() {
     </div>
   `).join('');
 }
+
+// ============================================================
+// TUTORIAL POPUP - First time only
+// ============================================================
+function showTutorialPopup() {
+  const seen = localStorage.getItem('sp_tutorial_seen');
+  if (!seen) {
+    setTimeout(() => {
+      tutorialPopup.classList.add('show');
+    }, 2000);
+  }
+}
+
+tutorialClose.addEventListener('click', () => {
+  tutorialPopup.classList.remove('show');
+  localStorage.setItem('sp_tutorial_seen', 'true');
+});
+
+tutorialPopup.addEventListener('click', (e) => {
+  if (e.target === tutorialPopup) {
+    tutorialPopup.classList.remove('show');
+    localStorage.setItem('sp_tutorial_seen', 'true');
+  }
+});
 
 // ============================================================
 // LIGHTBOX
@@ -1267,6 +1263,7 @@ if (checkIfInstalled()) {
   loadPosts();
   loadProfiles();
   loadTutorials();
+  showTutorialPopup();
 } else {
   installOverlay.classList.remove('hide');
   appEl.classList.remove('show');
@@ -1295,6 +1292,7 @@ installMainBtn.addEventListener('click', async () => {
         loadPosts();
         loadProfiles();
         loadTutorials();
+        showTutorialPopup();
         showToast('🎉 એપ ઇન્સ્ટોલ થઈ ગઈ!');
       } else {
         console.log('❌ User declined install');
@@ -1324,6 +1322,7 @@ document.addEventListener('visibilitychange', () => {
       loadPosts();
       loadProfiles();
       loadTutorials();
+      showTutorialPopup();
     }
   }
 });
@@ -1338,7 +1337,6 @@ if ('serviceWorker' in navigator) {
 }
 
 console.log('🚀 સમેજા પરિવાર શરૂ થયો!');
-console.log('👤 તમારો UID:', STATE.myUid);
 console.log('📱 Installed:', STATE.isInstalled);
 </script>
 
